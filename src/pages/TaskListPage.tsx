@@ -19,7 +19,7 @@ const TaskListPage: React.FC = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/tasks');
+        const response = await axios.get('https://reunion-assignment-backend-production-0ca3.up.railway.app/api/tasks');
         const mappedTasks = response.data.map((task: any) => ({
           ...task,
           start_time: task.startTime,
@@ -41,7 +41,7 @@ const TaskListPage: React.FC = () => {
   const addTask = async (newTask: Omit<Task, '_id'>) => {
     try {
         console.log('Task payload being sent:', newTask);
-        const response = await axios.post('http://localhost:5000/api/tasks', newTask);
+        const response = await axios.post('https://reunion-assignment-backend-production-0ca3.up.railway.app/api/tasks', newTask);
         setTasks((prev) => [...prev, response.data]);
     } catch (err) {
         const error = err as any;
@@ -53,7 +53,7 @@ const TaskListPage: React.FC = () => {
 
   const updateTask = async (updatedTask: Task) => {
     try {
-      await axios.put(`http://localhost:5000/api/tasks/${updatedTask._id}`, updatedTask);
+      await axios.put(`https://reunion-assignment-backend-production-0ca3.up.railway.app/api/tasks/${updatedTask._id}`, updatedTask);
       setTasks((prev) =>
         prev.map((task) => (task._id === updatedTask._id ? updatedTask : task))
       );
@@ -64,7 +64,7 @@ const TaskListPage: React.FC = () => {
 
   const deleteTasks = async (taskIds: string[]) => {
     try {
-      await axios.delete('http://localhost:5000/api/tasks', {
+      await axios.delete('https://reunion-assignment-backend-production-0ca3.up.railway.app/api/tasks', {
         data: { ids: taskIds },
       });
       setTasks((prev) => prev.filter((task) => !taskIds.includes(task._id)));
